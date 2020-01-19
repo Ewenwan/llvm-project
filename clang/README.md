@@ -2,7 +2,7 @@
 # C Language Family Front-end
 //===----------------------------------------------------------------------===//
 
-静态分析前会对源代码分词成 Token，这个过程称为词法分析（Lexical Analysis），在 TokensKind.def 里有 Clang 定义的所有 Token。Token 可以分为以下几类：
+静态分析前会对源代码分词成 Token，这个过程称为词法分析（Lexical Analysis），在 clang/include/clang/Basic/TokenKinds.def  里有 Clang 定义的所有 Token。Token 可以分为以下几类：
 
       关键字：语法中的关键字，if else while for 等。
       标识符：变量名
