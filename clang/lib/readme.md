@@ -125,7 +125,23 @@ CFG是用于描述单个指令（Stmt *）的源码级控制流程图。典型�
 
 ## 3.语义分析（Semantic Analysis）
 
+libclangSema
 
+
+
+## 4. 中间代码生成（IR Generator）
+
+libclangCodeGen
+
+## 5. 其他库介绍
+
+libclangAnaylysis：用于进行静态分析用的
+
+
+libclangRewrite：编辑文本缓冲区（代码重写转换非常重要，如重构）
+
+
+libclangBasic：诊断、源码定位、源码缓冲区抽象化、输入源文件的文件缓冲区
 
 
 
