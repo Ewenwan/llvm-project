@@ -33,7 +33,7 @@ Token类用于表述电仪的词法单元。Token被用于词法/预处理单元
 
 
 
-## 语法分析（Syntactic analysis）
+## 2. 语法分析（Syntactic analysis）
 
 语法分析主要是解析词法分析产生的词法单元（token）并生成抽象语法树（ATS）。如同自然语言一样，语法分析并不检查语法的上下文的合理性，其仅仅是从语法角度确认是否正确。 
 
@@ -63,7 +63,7 @@ Type类及其派生类是AST中非常重要的一部分。通过ASTContext访问
 表示一个声明（declaration）或定义（definition）。例如：变量、typedef、函数、结构等
 
 
-## 声明上下文，DeclContext类  clang/AST/DeclBase.h
+### 声明上下文，DeclContext类  clang/AST/DeclBase.h
 
 程序中每个声明都存在于某一个声明上下文中，类似翻译单元、名字空间、类或函数。Clang中的声明上下文是由类DeclContext类进行描述：各种AST节点声明上下文均派生于此（TranslationUnitDecl、NamespaceDecl、RecordDecl、FunctionDecl等）
 
@@ -84,6 +84,48 @@ DeclContext类对于每个声明上下文提供了一些公用功能：
 由DeclarationName类型指定的声明在声明上下文中查找声明   lookup()
 
 该机制提供了基于语义为中心的声明上下文视图
+
+4. 声明所有者
+
+   DeclContext包含了所有在其中声明的声明上下文，并负责管理他们并以及序列化（反）他们所有声明都保存在声明上下文中，并可以查询每个保存在其中的声明信息。关于声明上下文可以查看词法和语义分析一节.
+   
+5. 再宣告和重载
+   
+   在翻译单元中，公共的实体可能会被声明多次。
+   
+   表达式”f”在以源码为中心的和以语义为中心的上下文中的视图有所不同，在以源码为中心的声明上下文中，再宣告与他在源码中声明的位置有关。在语义为中心的视图中，会使用最近的视图替换最初的声明。而基于DeclContext::look操作将返回基于语义视图的上下文。
+   
+6. 词法和语义上下文
+
+对于每个声明可能存在两个不同的声明上下文：词法上下文，对应于源码视图的声明上下文。语义上下文对应于语法视图的。Decl::getLexicalDeclContext（clang/AST/DeclBase.h）返回词法声明上下文。而Decl::getDeclContext返回基于语义上下文，返回的两个值都是指向DeclContext的指针。
+
+7.透明声明上下文（TransparentDeclaration Contexts）
+
+现于枚举类型，Red是Color中的成员，但是，我们在Color外引用Red时并不需要限定名：Color；
+
+8.多重定义的声明上下文（Multiply-DefinedDeclaration Contexts）
+
+可以由DeclContext::isTransparentContext确认是否是透明声明。
+
+###  Stmt 指令 类  clang/AST/Stmt.h   for do goto return ...
+
+### QualType类  查询类
+
+QualType被设计为一个微不足道的、微小的通过传值用于高效查询的类。QualType的思想是将类型修饰符（const、volatile、restrict以及语言扩展所需的修饰符）与他们自己的类型分开保存。QualType概念上是一对“Type *”和他们的类型修饰符。类型限定符只是占用指针的低位。
+
+
+### 声明名字（Declarationnames）
+
+DeclarationName（clang/AST/DeclarationName.h）用来描述clang中的声明名字。声明在C族语言中有一些不同的形式。多数的声明被命名为简单的标识，例如：f(int x)中的声明f和x。在C++中，声明可以构造类的构造函数、类的析构函数、重载操作符合转换函数。
+
+
+### CFG类
+CFG是用于描述单个指令（Stmt *）的源码级控制流程图。典型的CFG实例为构造函数体（典型的是一个CompoundStmt实例），但是也可以表示任何Stmt派生类的控制流。控制流图通常对给定函数执行流-或路径-敏感的分析特别有用。
+
+
+## 3.语义分析（Semantic Analysis）
+
+
 
 
 
