@@ -19,7 +19,7 @@ take a look at the
     brew install cmake
     mkdir build
     cd build
-    cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;" -DBUILD_SHARED_LIBS=ON -DLLVM_TARGETS_TO_BUILD="AArch64;X86" -DCMAKE_INSTALL_PREFIX=/usr/local -G "Unix Makefiles" ../llvm
+    cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;clang-tools-extra" -DBUILD_SHARED_LIBS=ON -DLLVM_TARGETS_TO_BUILD="AArch64;X86" -DCMAKE_INSTALL_PREFIX=/usr/local -G "Unix Makefiles" ../llvm
     make j8
     #安装
     make install
