@@ -24,6 +24,70 @@ take a look at the
     #安装
     make install
 
+备注，上述 DLLVM_ENABLE_PROJECTS 指定了需要安装的 附件库
+
+
+> LLVM与编译相关的标准库：
+
+**opt：
+
+该工具的目标是针对IR阶段的程序进行优化，其输入文件必须是LLVM的Bitcode，输出为相同格式的IR文件
+
+**llc：
+
+将LLVM的IR文件转换成设备相关的汇编语言文件或Obj文件。您可以指定优化等级、Debug使能、是否针对目标平台优化。
+
+**llvm-mc：
+
+将汇编代码生成为指定格式的OBJ文件，如：ELF文件、MachO文件、PE文件等。也可反汇编相应的OBJ文件
+
+**lli：
+
+以解释方式或JIT运行LLVM
+
+IR文件llvm-link：
+
+将几个LLVM Bitcode整合为单一一个LLVM Bitcode，注意却别于我们在编译时实用的通常的Link文件，如Linux下ld
+ 
+**llvm-as：
+ 
+ 将LLVM中人工可识别IR文件（ll）转换为LLVMBitcode（BC）文件
+ 
+**llvm-dis：将LLVM Bitcode（BC）转换成人可阅读的IR文件（LL）
+
+> LLVM/Clang的基础库：
+
+**libLLVMCore：
+
+LLVM核心库，主要是：
+
+1）LLVM IR指令构造、检查。
+
+2）Pass管理lib
+
+**LLVMAnalysis：
+
+包含了IR相关的几个分析Pass：
+
+如对其别名分析、相关性分析、常量折叠（Constant folding）、循环信息、内存依赖分析、指令化简等，详细见目录：lib\Analysis
+ 
+**libLLVMCodeGen：
+
+目标无关的代码生成、低级LLVM IR（机器相关）分析和转换，见相关目录：lib\CodeGenlib
+
+**LLVMTarget：
+
+由通用目标及抽象提供对目标机的访问。这些通用的抽象提供了libLLVMCodeGen中通用的后端算法和目标相关逻辑间的通讯途径。详细目录：lib\Target，其中各目录包含了已经支持的各平台libLLVMxxxxCodeGen（xxxx表示具体支持的平台，如X86等）：具体平台相关的代码生成、转换和分析Pass，其是相关平台的后端。
+
+**libLLVMSupport：
+
+LLVM的支持库：错误处理、整形和浮点处理、命令行解析、调试、文件支持、字符串操作等；所在目录：lib\Support
+
+**libclangxxxx（各clang前端功能，如AST、词法分析、语法分析）：
+
+提供了访问Clang前端各功能的接口。可以用于任何语言中，如Python中
+
+
 
 ## Getting Started with the LLVM System
 
