@@ -9,7 +9,7 @@
 
 词法分析器读入组成源程序的字节流，并将他们组成有意义的词素（Lexeme）序列。对于每个词素，词法分析器产生词单元（token）作为输出，并生成相关符号表。词法库包含了几个紧密相连的类，他们涉及到词法和C源码预处理。
 
-相关诊断: DiagnosticLexKinds.td
+相关诊断: clang/include/clang/Basic/DiagnosticLexKinds.td
 
 词法单元（Token）的定义：TokenKinds.def（clang/include/clang/Basic/）
 
@@ -22,18 +22,20 @@ Clang的保留字定义在TokenKinds.def，如常见的if或for关键字
 
 Preprocessor是词法分析中的一个主要接口,可以看到，词法分析时在预处理过程中初始化的即Preprocessor.
 
-在词法分析中，预处理程序被初始调用的主要程序是CompilerInstance::createPreprocessor（lib/Frontend/CompilerInstance.cpp）
+在词法分析中，预处理程序被初始调用的主要程序是[CompilerInstance::createPreprocessor（lib/Frontend/CompilerInstance.cpp）](https://github.com/Ewenwan/llvm-project/blob/3745623ba574effe6c157fde7b556734bb7456b5/clang/lib/Frontend/CompilerInstance.cpp#L379)
 
-其核心程序是Preprocessor::Lex,该程序返回下一个Token
+之后是 FrontEnd Action -> /clang/lib/Lex/Preprocessor.cpp
+
+其核心程序是[Preprocessor::Lex](https://github.com/Ewenwan/llvm-project/blob/3745623ba574effe6c157fde7b556734bb7456b5/clang/lib/Lex/Preprocessor.cpp#L886),该程序返回下一个Token
 
 
 ### Token类  clang/include/clang/Lex/Token.h 
 
 Token类用于表述电仪的词法单元。Token被用于词法/预处理单元，但并不会在这些库以外存在（如，Token不会存在于AST中）.
+[Token.h](https://github.com/Ewenwan/llvm-project/blob/master/clang/include/clang/Lex/Token.h)
 
 
-
-## 2. 语法分析（Syntactic analysis）
+## 2. 语法分析（Syntactic analysis） libclangParse libclangAST
 
 语法分析主要是解析词法分析产生的词法单元（token）并生成抽象语法树（ATS）。如同自然语言一样，语法分析并不检查语法的上下文的合理性，其仅仅是从语法角度确认是否正确。 
 
@@ -119,7 +121,7 @@ QualType被设计为一个微不足道的、微小的通过传值用于高效查
 DeclarationName（clang/AST/DeclarationName.h）用来描述clang中的声明名字。声明在C族语言中有一些不同的形式。多数的声明被命名为简单的标识，例如：f(int x)中的声明f和x。在C++中，声明可以构造类的构造函数、类的析构函数、重载操作符合转换函数。
 
 
-### CFG类
+### CFG类 控制流程图
 CFG是用于描述单个指令（Stmt *）的源码级控制流程图。典型的CFG实例为构造函数体（典型的是一个CompoundStmt实例），但是也可以表示任何Stmt派生类的控制流。控制流图通常对给定函数执行流-或路径-敏感的分析特别有用。
 
 
@@ -129,7 +131,7 @@ libclangSema
 
 
 
-## 4. 中间代码生成（IR Generator）
+## 4. 中间代码生成（IR Generator）  libclangCodeGen
 
 libclangCodeGen
 
@@ -142,6 +144,16 @@ libclangRewrite：编辑文本缓冲区（代码重写转换非常重要，如�
 
 
 libclangBasic：诊断、源码定位、源码缓冲区抽象化、输入源文件的文件缓冲区
+
+
+
+Clang诊断子系统是一个编译器与人交互的重要部分。诊断是当代码不正确或可疑时产生警告和错误。在clang中，每个诊断产生（最少）一个唯一标识ID、一个相关的英文、SourceLocation源码位置“放置一个^”和一个严重性（例如：WARNING或ERROR）。他可以选择包含一些参数给争端（如使用%0填充字串）以及相关源码区域。
+
+SourceLocation：表示源代码的位置。See：clang/Basic/SourceLocation.h。SourceLocation因为被嵌入到许多AST中，因此，该类必须足够小。
+
+SourceLocation：通常是和SourceManager一同使用，用于对一个位置信息的两条信息进行编码。见：clang/Basic/SourceManager.h
+
+SourceRange：是SourceLocation.h中类，表示源码的范围：【first，last】。First和last都是SourceLocation
 
 
 
