@@ -9,9 +9,7 @@ For more information on how to contribute to the LLVM project, please
 take a look at the
 [Contributing to LLVM](https://llvm.org/docs/Contributing.html) guide.
 
-# 目录介绍
-
-
+[LLVM系统的新用户指南,中文翻译版](https://github.com/Ewenwan/llvm-guide-zh)
 
 # 编译 LLVM
 
