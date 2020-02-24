@@ -175,7 +175,7 @@ Clang执行初期是作为driver执行的，因此，程序的入口是：tools/
     }
     return ExecuteCC1Tool(argv);
   }  
-```
+ ```
 如果是 -cc1 的话会调用 ExecuteCC1Tool 这个函数，先看看这个函数
 
 ```c
@@ -207,10 +207,14 @@ static int ExecuteCC1Tool(ArrayRef<const char *> argv) {
 
 最初的C/C++源码经过：词法分析（Lexical analysis）、语法分析（Syntactic analysis）、语义分析（Semantic analysis）最后输出与平台无关的IR（LLVM IR generator）
 
-###  词法分析（Lexical analysis） libclangLex
+###  词法分析（Lexical analysis） libclangLex 
 
+编译器第一个步骤是词法分析（Lexical analysis）。词法分析器读入组成源程序的字节流，并将他们组成有意义的词素（Lexeme）序列。对于每个词素，词法分析器产生**词单元（token）**作为输出，并生成相关符号表。词法库包含了几个紧密相连的类，他们涉及到词法和C源码预处理。
 
+源码      clang/lib/Lex/
+相关诊断  DiagnosticLexKinds.td
 
+[后续分析](https://github.com/Ewenwan/llvm-project/blob/master/clang/lib/readme.md)
 
 ## 后端LLVM分析
 
