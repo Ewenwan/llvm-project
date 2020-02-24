@@ -146,7 +146,34 @@ Clang执行初期是作为driver执行的，因此，程序的入口是：tools/
 
    子进程作业树需要确认构造编译序列。这包含确认输入文件及其类型、对他们进行什么样的工作（预处理、编译、汇编、链接等）并为每个人物构造动作实例链表。这样的结构是一个或更多的顶层动作列表，每个通常对应一个单一的输出（例如，对象或链接的可执行文件）多数的动作（Actions）对应一个实际的任务，但是这里有两个特殊的任务（Actions），第一个是InputActions，他只是简单将输入参数匹配到另一个Actions的输入。第二个是BindArchAction，从概念上给所有使用输入的动作替换架构Clang驱动可以使用命令“-ccc-print-phases”转印这一阶段的结果。
 
+    2.5 Action
+    
+每次的 option 都会完整的走一遍从预处理，静态分析，backend 再到汇编的过程。
+
+下面列下一些编译器的前端 Action，大家可以一个个用着玩。
+
+    InitOnlyAction - 只做前端初始化，编译器 option 是    -init-only
+    PreprocessOnlyAction - 只做预处理，不输出，编译器的 option 是 -Eonly
+    PrintPreprocessedAction - 做预处理，子选项还包括-P、-C、-dM、-dD 具体可以查看PreprocessorOutputOptions 这个类，编译器 option 是 -E
+    RewriteIncludesAction - 预处理
+    DumpTokensAction - 打印token，option 是 -dump-tokens
+    DumpRawTokensAction - 输出原始tokens，包括空格符，option 是 -dump-raw-tokens
+    RewriteMacrosAction - 处理并扩展宏定义，对应的 option 是 -rewrite-macros
+    HTMLPrintAction - 生成高亮的代码网页，对应的 option 是 - emit-html
+    DeclContextPrintAction - 打印声明，option 对应的是 -print-decl-contexts
+    ASTDeclListAction - 打印 AST 节点，option 是 -ast-list
+    ASTDumpAction - 打印 AST 详细信息，对应 option 是 -ast-dump
+    ASTViewAction - 生成 AST dot 文件，能够通过 Graphviz 来查看图形语法树。 option 是 -ast-view
+    AnalysisAction - 运行静态分析引擎，option 是 -analyze
+    EmitLLVMAction - 生成可读的 IR 中间语言文件，对应的 option 是      -emit-llvm
+    EmitBCAction - 生成 IR Bitcode 文件，option 是                   -emit-llvm-bc
+    MigrateSourceAction - 代码迁移，option 是 -migrate
+
+
     3. Bind：Tool & Filename Selection 工具、文件绑定
+    
+Bind 主要是与工具链 ToolChain 交互
+根据创建的那些 Action，在 Action 执行时 Bind 来提供使用哪些工具，比如生成汇编时是使用内嵌的还是 GNU 的，还是其它的呢，这个就是由 Bind 来决定的，具体使用的工具有各个架构，平台，系统的 ToolChain 来决定
 
 驱动与工具链互动去执行工具绑定（The driver interacts with a ToolChain to perform the Tool bindings）。每个工具链包含特定架构、平台和操作系统等编译需要的所有信息；一个单一的工具在编译期间需要提取很多工具链，为了与不同体系架构的工具进行交互。
 
