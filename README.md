@@ -195,6 +195,23 @@ static int ExecuteCC1Tool(ArrayRef<const char *> argv) {
 ```
 最终的执行会执行 cc1-main 、cc1as_main 、cc1gen_reproducer_main。这三个函数分别在 driver.cpp 同级目录里的 cc1_main.cpp 、cc1as_main.cpp 、cc1gen_reproducer_main.cpp中。
 
+依照关于Driver的示意图，clang将藉由Action完成具体的操作，在clang中所有action定义在include/clang/Drivers名字域：clang::driver下，其Action即其派生的Actions定义如下：
+
+这一阶段完成，编译过程被分为一组需要执行并产生中间或最终输出（某些情况下，类似-fsyntax-only，不会有“真实”的最终输出）的Action。阶段是我们熟知的编译步骤，类似：预处理、编译、汇编、链接等等。
+
+所有相关Action的定义在FrontendOptions.h(clang/include/clang/Frontend/FrontendOptions.h )中；
+
+[代码](https://github.com/Ewenwan/llvm-project/blob/f9665a93fa96c464d7b6e911e111fbbbc0fbfa64/clang/include/clang/Frontend/FrontendOptions.h#L34)
+
+在clang中允许通过FrontendAction编写自己的Action，使用FrontendPluginRegistry（clang/frontend/FrontendRegistry.h）注册自己的Action:其核心是通过继承clang::FrontendAction来实现，详细示例参考：clang/examples/AnnotateFunctions/AnnotateFunctions.cpp，该示例通过继承PluginASTAction，并使用FrontendPluginRegistry::Add将其注册
+
+最初的C/C++源码经过：词法分析（Lexical analysis）、语法分析（Syntactic analysis）、语义分析（Semantic analysis）最后输出与平台无关的IR（LLVM IR generator）
+
+###  词法分析（Lexical analysis） libclangLex
+
+
+
+
 ## 后端LLVM分析
 
 
