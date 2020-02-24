@@ -1,6 +1,10 @@
+
 # CLANG 分析
 
 最初的C/C++源码经过：词法分析（Lexical analysis）-> 语法分析（Syntactic analysis）-> 语义分析（Semantic analysis）-> 与平台无关的IR（LLVM IR generator）
+
+从词法分析开始——将C语言 源码分解成token流，每个token可表示标识符、字面量、运算符等；
+token流会传递给语法分析器，语法分析器会在语言的CFG（Context Free Grammar，上下文无关文法）的指导下将token流组织成AST（抽 象语法树）；接下来会进行语义分析，检查语义正确性，然后生成IR。
 
 
 ## 1. 词法分析（Lexical analysis） clang/lib/Lex/ 
@@ -121,8 +125,8 @@ QualType被设计为一个微不足道的、微小的通过传值用于高效查
 DeclarationName（clang/AST/DeclarationName.h）用来描述clang中的声明名字。声明在C族语言中有一些不同的形式。多数的声明被命名为简单的标识，例如：f(int x)中的声明f和x。在C++中，声明可以构造类的构造函数、类的析构函数、重载操作符合转换函数。
 
 
-### CFG类 控制流程图
-CFG是用于描述单个指令（Stmt *）的源码级控制流程图。典型的CFG实例为构造函数体（典型的是一个CompoundStmt实例），但是也可以表示任何Stmt派生类的控制流。控制流图通常对给定函数执行流-或路径-敏感的分析特别有用。
+### CFG类 控制流程图？ （Context Free Grammar，上下文无关文法）
+CFG是用于描述单个指令（Stmt *）的源码级控制流程图？。典型的CFG实例为构造函数体（典型的是一个CompoundStmt实例），但是也可以表示任何Stmt派生类的控制流。控制流图通常对给定函数执行流-或路径-敏感的分析特别有用。
 
 
 ## 3.语义分析（Semantic Analysis）
