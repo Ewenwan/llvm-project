@@ -22,3 +22,22 @@ $ cmake --build . --target check-mlir
 
 
 [参考](https://www.zhihu.com/people/zhang-hong-bin-99/posts)
+
+
+
+# 使用 
+
+
+首先要将源程序生成抽象语法树(AST)，然后再遍历抽象语法树来构建MLIR表达式。那么使用我们刚刚生成的可执行文件来打印出抽象语法树：
+
+$ cd llvm-project/build/
+$ bin/toyc-ch2 ../mlir/test/Examples/Toy/Ch2/codegen.toy -emit=ast
+
+同样使用可执行文件来打印MLIR表达式：
+
+$ cd llvm-project/build/
+$ bin/toyc-ch2 ../mlir/test/Examples/Toy/Ch2/codegen.toy -emit=mlir -mlir-print-debuginfo
+
+
+
+
