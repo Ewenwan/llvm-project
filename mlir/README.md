@@ -19,3 +19,6 @@ $ cmake -G "Unix Makefiles" ../llvm \
      -DCMAKE_BUILD_TYPE=Release \
      -DLLVM_ENABLE_ASSERTIONS=ON 
 $ cmake --build . --target check-mlir
+
+
+[参考](https://www.zhihu.com/people/zhang-hong-bin-99/posts)
