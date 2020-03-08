@@ -188,3 +188,43 @@ on the Clang development mailing list:
 
 If you find a bug in Clang, please file it in the LLVM bug tracker:
   http://llvm.org/bugs/
+
+
+# 项目和工具列表
+
+https://github.com/Andersbakken/rtags/
+RTags是一个 client/server 应用程序，它索引 c/c++ 代码，并在内存中保存一个持久的数据库，其中包含引用、符号名、补全等。
+https://rprichard.github.com/sourceweb/
+一个 C/C++ 源代码索引器和导航器。
+https://github.com/etaoins/qconnectlint
+qconnectlint是一个 Clang 工具，用于静态验证使用 Qt 的QObject::connect建立的信号和插槽连接的一致性。
+https://github.com/woboq/woboq_codebrowser
+Woboq代码浏览器是一个基于web的代码浏览器，用于 C/C++ 项目。查看 https://code.woboq.org/ 获得一个示例。
+https://github.com/mozilla/dxr
+DXR是一个源代码交叉引用工具，它使用由插桩后的编译器收集的静态分析数据。
+https://github.com/eschulte/clang-mutate
+这个工具对C语言源文件执行许多操作。
+https://github.com/gmarpons/Crisp
+一个用于LLVM/clang的编码规则验证附加组件。Crisp规则是在Prolog中编写的。一个高级声明性 DSL 正在开发中，可以轻松地编写新规则。它将被命名为CRISP，这是Coding Rules in Sugared Prolog的首字母缩写。
+https://github.com/drothlis/clang-ctags
+为C++源代码生成 tag 文件。
+https://github.com/exclipy/clang_indexer
+这是一个基于libclang库的C和C++索引器。
+https://github.com/holtgrewe/linty
+Linty —— C/C++风格检查，使用 Python & libclang。
+https://github.com/axw/cmonster
+cmonster是一个用于 Clang C++ 解析器的Python wrapper。
+https://github.com/rizsotto/Constantine
+Constantine是一个学习如何编写 clang plugin 的简单项目。实现伪 const 分析。生成关于变量的警告，这些变量在声明时没有使用 const 限定符。
+https://github.com/jessevdk/cldoc
+cldoc是一个基于 Clang 的 C和C++文档生成器。cldoc试图用一种现代的、非侵入性的、健壮的方法来解决编写C/C++软件文档的问题。
+https://github.com/AlexDenisov/ToyClangPlugin
+实现 Objective-C 语义检查的最简单的 Clang plugin。这个例子展示了如何使用DiagnosticsEngine（发出警告、错误和fixit提示）。参见 http://l.rw.rw/clang_plugin 查看详细的步骤说明。
+
+https://phabricator.kde.org/source/clazy
+
+clazy是一个编译器插件，它允许 clang 理解 Qt 语义。你会得到50多个 Qt 相关的编译器警告，从不需要的内存分配到API的滥用，包括用于自动重构的fix-its。
+
+https://gerrit.libreoffice.org/gitweb?p=core.git;a=blob_plain;f=compilerplugins/README;hb=HEAD
+LibreOffice使用一个 Clang plugin 基础设施在构建过程中检查各种东西，有些是LibreOffice源代码特有的，有些不是。目前大约有50个这样的检查器，从flagging C-style casts和保留标识符的使用，到确保代码遵循特定于LibreOffice类的特定生命周期协议。它们可以作为编写基于RecursiveASTVisitor的 plugins 的例子。
+
