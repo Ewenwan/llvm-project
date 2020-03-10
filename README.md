@@ -11,6 +11,8 @@ take a look at the
 
 [LLVM系统的新用户指南,中文翻译版](https://github.com/Ewenwan/llvm-guide-zh)
 
+[LLVM_IR_tutorial](http://llvm.org/devmtg/2019-04/slides/Tutorial-Bridgers-LLVM_IR_tutorial.pdf)
+
 # 编译 LLVM
 
     brew install gcc
