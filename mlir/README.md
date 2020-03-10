@@ -9,6 +9,8 @@ MLIR希望为各种DSL（领域专用语言）提供一种中间表达形式，�
 
 [Keynote-ShpeismanLattner-MLIR 介绍](http://llvm.org/devmtg/2019-04/slides/Keynote-ShpeismanLattner-MLIR.pdf)
 
+[Tutorial-AminiVasilacheZinenko-MLIR](http://llvm.org/devmtg/2019-04/slides/Tutorial-AminiVasilacheZinenko-MLIR.pdf)
+
 # 编译
 
 $ git clone https://github.com/llvm/llvm-project.git
