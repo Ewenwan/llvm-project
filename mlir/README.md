@@ -7,6 +7,8 @@ MLIR（或称为多级别中介码）是谷歌新发起的项目。这是一种�
 
 MLIR希望为各种DSL（领域专用语言）提供一种中间表达形式，将他们集成为一套生态系统，使用一种一致性强的方式编译到特定硬件平台的汇编语言上。利用这样的形式，MLIR就可以利用它模块化、可扩展的特点来解决IR之间相互配合的问题。
 
+[Keynote-ShpeismanLattner-MLIR 介绍](http://llvm.org/devmtg/2019-04/slides/Keynote-ShpeismanLattner-MLIR.pdf)
+
 # 编译
 
 $ git clone https://github.com/llvm/llvm-project.git
