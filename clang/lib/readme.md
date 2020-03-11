@@ -1,4 +1,3 @@
-
 # CLANG 分析
 
 最初的C/C++源码经过：词法分析（Lexical analysis）-> 语法分析（Syntactic analysis）-> 语义分析（Semantic analysis）-> 与平台无关的IR（LLVM IR generator）
@@ -6,6 +5,8 @@
 从词法分析开始——将C语言 源码分解成token流，每个token可表示标识符、字面量、运算符等；
 token流会传递给语法分析器，语法分析器会在语言的CFG（Context Free Grammar，上下文无关文法）的指导下将token流组织成AST（抽 象语法树）；接下来会进行语义分析，检查语义正确性，然后生成IR。
 
+
+libclang  clang-c/Index.h   c接口调用clang [示例](https://github.com/Ewenwan/screader/blob/master/scread.c)
 
 ## 1. 词法分析（Lexical analysis） clang/lib/Lex/ 
 
@@ -17,7 +18,7 @@ token流会传递给语法分析器，语法分析器会在语言的CFG（Contex
 
 词法单元（Token）的定义：TokenKinds.def（clang/include/clang/Basic/）
 
-Clang的保留字定义在TokenKinds.def，如常见的if或for关键字
+Clang的保留字定义在 TokenKinds.def，如常见的if或for关键字
 
 说明TokenKinds.def中定义了许多诸如TOK和KEYWORD等宏，实际相关宏只有在外部引用程序引用TokenKinds.def前定义才会真正有意义；而且引用位置不同，其意义可能不同
 
@@ -149,9 +150,10 @@ libclangRewrite：编辑文本缓冲区（代码重写转换非常重要，如�
 
 libclangBasic：诊断、源码定位、源码缓冲区抽象化、输入源文件的文件缓冲区
 
-
-
 Clang诊断子系统是一个编译器与人交互的重要部分。诊断是当代码不正确或可疑时产生警告和错误。在clang中，每个诊断产生（最少）一个唯一标识ID、一个相关的英文、SourceLocation源码位置“放置一个^”和一个严重性（例如：WARNING或ERROR）。他可以选择包含一些参数给争端（如使用%0填充字串）以及相关源码区域。
+
+Clang diagnostics   Diagnostic::Level  enum  [ NOTE  WARNING  EXTENSION  EXTWARN ERROR ]
+
 
 SourceLocation：表示源代码的位置。See：clang/Basic/SourceLocation.h。SourceLocation因为被嵌入到许多AST中，因此，该类必须足够小。
 
@@ -159,5 +161,9 @@ SourceLocation：通常是和SourceManager一同使用，用于对一个位置�
 
 SourceRange：是SourceLocation.h中类，表示源码的范围：【first，last】。First和last都是SourceLocation
 
+
+
+
+# makefile
 
 
