@@ -4,8 +4,11 @@
 
 [arm  ClangTutorial](https://llvm.org/devmtg/2019-10/slides/ClangTutorial-Stulova-vanHaastregt.pdf)
 
-
 [clang 代码继承树 ](https://clang.llvm.org/doxygen/inherits.html)
+
+[Basic source-to-source transformation with Clang](https://eli.thegreenplace.net/2012/06/08/basic-source-to-source-transformation-with-clang/)
+
+[使用Clang实现C语言编程规范检查http://www.cppblog.com/kevinlynx/archive/2013/02/12/197810.aspx](http://www.cppblog.com/kevinlynx/archive/2013/02/12/197810.aspx)
 
 静态分析前会对源代码分词成 Token，这个过程称为词法分析（Lexical Analysis），在 clang/include/clang/Basic/TokenKinds.def  里有 Clang 定义的所有 Token。Token 可以分为以下几类：
 
