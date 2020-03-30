@@ -5,8 +5,9 @@
 从词法分析开始——将C语言 源码分解成token流，每个token可表示标识符、字面量、运算符等；
 token流会传递给语法分析器，语法分析器会在语言的CFG（Context Free Grammar，上下文无关文法）的指导下将token流组织成AST（抽 象语法树）；接下来会进行语义分析，检查语义正确性，然后生成IR。
 
-
 libclang  clang-c/Index.h   c接口调用clang [示例](https://github.com/Ewenwan/screader/blob/master/scread.c)
+
+Parser部分涉及到的目录有 tools/clang/lib/AST语法树定义，Sema语义分析，Lex词法分析器，Parse语法分析器。
 
 ## 1. 词法分析（Lexical analysis） clang/lib/Lex/ 
 
