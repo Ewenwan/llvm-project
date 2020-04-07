@@ -13,6 +13,7 @@ take a look at the
 
 [LLVM_IR_tutorial](http://llvm.org/devmtg/2019-04/slides/Tutorial-Bridgers-LLVM_IR_tutorial.pdf)
 
+
 # 编译 LLVM
 
     brew install gcc
@@ -24,7 +25,16 @@ take a look at the
     #安装
     make install
 
-备注，上述 DLLVM_ENABLE_PROJECTS 指定了需要安装的 附件库
+备注，上述 DLLVM_ENABLE_PROJECTS 指定了需要安装的 附加库
+
+-DLLVM_ENABLE_PROJECTS='clang'： 这个参数告诉llvm还要编译clang。如果有需要，可以加入其它子项目。
+
+-DCMAKE_BUILD_TYPE=Release： 在cmake里，有四种编译模式：Debug, Release, RelWithDebInfo, 和MinSizeRel。 这里BUILD_TYPE的取值就可以是这四个中的一个。 Debug相当于-g，Release相当于-O3， RelWithDebInfo相当于-O2 -g，MinSizeRel相当与-Os。 我们这里使用Release模式编译会省很大的空间。因为少了很多Debug信息。
+
+-DLLVM_TARGETS_TO_BUILD='X86'： 这个参数指定编译的目标平台。默认目标是所有平台，所以会很占空间。 在x86平台上设置为X86就行了。其它平台参考上面提到的的官方文档。
+
+-DBUILD_SHARED_LIBS=On： 这个参数指定使用动态链接来链接LLVM的库。 因为默认取值Off代表静态链接，这会导致LLVM库被重复复制到好多可执行文件中， 所以可以设置为On节省空间。
+
 # 文件目录分析
 
 [参考](https://xiaozhuanlan.com/topic/3169254807)
