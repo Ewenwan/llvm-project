@@ -35,6 +35,40 @@ take a look at the
 
 -DBUILD_SHARED_LIBS=On： 这个参数指定使用动态链接来链接LLVM的库。 因为默认取值Off代表静态链接，这会导致LLVM库被重复复制到好多可执行文件中， 所以可以设置为On节省空间。
 
+Windows 安装：
+
+ 编译器版本: Visual Studio Community 2015 Update 3 +
+            CMake 3.5 +
+ 需要支持cuda的话，请装cuda 10.0以上的。
+ 
+1.	下载 安装 LLVM
+
+https://github.com/llvm/llvm-project/releases/tag/llvmorg-10.0.0/ 
+
+LLVM-10.0.0-win64.exe  预编译好的
+
+直接运行这个安装包，按照他的步骤来，中途会有一个问你是否添加到系统路径，你填第二个，即添加到系统路径并所有人都可以使用。安装完成后，把LLVM的路径，比如我的是C:\Program Files\LLVM\bin  （我把这个预编译的LLVM装在C盘），再添加到系统路径下（跟之前的不同）。
+
+然后打开CMD（命令行），输入clang -v，出现下图就表示这个预编译LLVM安装成功。
+
+
+LLVM 源码安装
+
+下载源码： https://github.com/llvm/llvm-project/tree/llvmorg-10.0.0
+
+        cd llvm & make build & cd build 
+        运行  cmake -G "Visual Studio 15 2017 Win64" .. -Thost=x64 -DLLVM_ENABLE_PROJECTS=clang
+
+如果没有意外，打开build文件夹下的LLVM.sln，确认编译的平台和版本release x64，然后右击生成 Libraries和Tools下面的所有项目。
+这个编译时间很长大约30+分钟，最后如果显示生成成功，错误那里显示0个就表示编译OK了。
+
+在build\lib\cmake\llvm有tvm需要的cmake文件（注1）。
+
+在build\Release\bin下面有各种可能用到的工具，可以加到系统PATH。
+
+
+
+
 # 文件目录分析
 
 [参考](https://xiaozhuanlan.com/topic/3169254807)
